@@ -1,0 +1,478 @@
+
+/* css for all the text on the page */
+
+h1#logo {
+	font-family: 'Oswald';
+	font-size: 40px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+div#intro{
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+h2{
+	font-family: 'Merriweather', serif;
+	font-size: 14px;
+	text-align: center;
+	font-weight: lighter;
+	margin-top: -30px;
+	margin-bottom: 40px;
+}
+
+h3{
+	font-family: 'Oswald';
+	font-size: 20px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+h4{
+	font-family: 'Merriweather', serif;
+	font-size: 14px;
+	text-align: center;
+	font-weight: lighter;
+	margin-top: -15px;
+}
+h5{
+	font-family: 'Oswald', sans-serif;
+	font-weight: 300;
+	font-size: 18px;
+}
+
+p{
+	font-family: 'Merriweather', serif;
+	font-size: 14px;
+	font-weight: lighter;
+	text-align: left;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/* css for the start page */
+
+#wrap{
+	background-color: #e7eee6;
+	width: 1200px;
+	height: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#book_01{
+	width: 300px;
+	height: 400px;
+	background-color: #7ccbbd;
+	float:left;
+	text-align: center;
+	
+}
+
+div#book_03{
+	width: 300px;
+	height: 400px;
+	background-color: #7ccbbd;
+	text-align: center;
+	float:right;
+}
+
+div#book_02{
+	width: 300px;
+	height: 400px;
+	background-color: #7ccbbd;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: center;
+	padding-top: 2px;
+}
+
+	
+/* css for the indivdual visualization pages no 01*/
+
+section#viz01{
+	background-color: #fbe7dd;
+	width: 1200px;
+	height: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+div#keywrap01{
+	background-color: #e7eee6;
+	width: 	600px;
+	height: 600px;
+	float: right;
+	margin-top: -40px;
+}
+
+div#textbox01{
+	background-color: #b4e2d8;
+	width: 500px;
+	float: right;
+	margin-top: 50px;
+}
+
+div#key01{
+	width: 	600px;
+	height: 600px;
+	margin-top: 200px;
+	text-align: center;
+}
+
+/* css for the indivdual visualization pages no 02*/
+
+
+section#viz02{
+	background-color: #8ea9c4;
+	width: 1200px;
+	height: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+div#keywrap02{
+	background-color: #e7eee6;
+	width: 	600px;
+	height: 600px;
+	float: right;
+	margin-top: -40px;
+}
+
+div#textbox02{
+	background-color: #b4e2d8;
+	width: 500px;
+	float: right;
+	margin-top: 50px;
+}
+
+div#key02{
+	width: 	600px;
+	height: 600px;
+	margin-top: 200px;
+	text-align: center;
+}
+
+/* css for the indivdual visualization pages no 03*/
+
+section#viz03{
+	background-color: #b4e2d8;
+	width: 1200px;
+	height: 600px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+div#keywrap03{
+	background-color: #e7eee6;
+	width: 	600px;
+	height: 600px;
+	float: right;
+	margin-top: -40px;
+}
+
+div#textbox03{
+	background-color: #b4e2d8;
+	width: 500px;
+	float: right;
+	margin-top: 50px;
+}
+
+div#key03{
+	width: 	600px;
+	height: 600px;
+	margin-top: 200px;
+	text-align: center;
+}
+
+
+
+
+/* Design for tablet*/
+
+@media screen and (max-width: 768px){
+
+
+
+#wrap{
+	background-color: #e7eee6;
+	width: 700px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+img{
+	height:auto;
+	width:45%
+}
+
+h3{
+	font-family: 'Oswald';
+	font-size: 14px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+h4{
+	font-family: times;
+	font-size: 10px;
+	text-align: center;
+	font-weight: lighter;
+	margin-top: -10px;
+}
+
+/* Design for tablet section 01*/
+
+section#viz01{
+	background-color: #fbe7dd;
+	width: 700px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+div#keywrap01{
+	background-color: #e7eee6;
+	width: 	350px;
+	height: 500px;
+	float: right;
+	margin-top: -40px;
+}
+
+div#textbox01{
+	background-color: #b4e2d8;
+	width: 350px;
+	float: right;
+	margin-top: 50px;
+}
+
+
+div#key01{
+	width: 	200px;
+	height: 500px;
+	margin-top: 200px;
+	text-align: center;
+}
+
+/* Design for tablet section 02*/
+
+section#viz02{
+	background-color: #8ea9c4;
+	width: 700px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+div#keywrap02{
+	background-color: #e7eee6;
+	width: 	350px;
+	height: 500px;
+	float: right;
+	margin-top: -40px;
+}
+
+div#textbox02{
+	background-color: #b4e2d8;
+	width: 350px;
+	float: right;
+	margin-top: 50px;
+}
+
+
+div#key02{
+	width: 	200px;
+	height: 500px;
+	margin-top: 200px;
+	text-align: center;
+}
+
+/* Design for tablet section 03*/
+
+section#viz03{
+	background-color: #b4e2d8;
+	width: 700px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+
+div#keywrap03{
+	background-color: #e7eee6;
+	width: 	350px;
+	height: 500px;
+	float: right;
+	margin-top: -40px;
+}
+
+div#textbox03{
+	background-color: #b4e2d8;
+	width: 350px;
+	float: right;
+	margin-top: 50px;
+}
+
+
+div#key03{
+	width: 	200px;
+	height: 500px;
+	margin-top: 200px;
+	text-align: center;
+}
+
+
+div#book_01{
+	width: 150px;
+	height: 200px;
+	background-color: #7ccbbd;
+	float:left;
+	
+}
+
+div#book_03{
+	width: 150px;
+	height: 200px;
+	background-color: #7ccbbd;
+	float: right;
+}
+div#book_02{
+	width: 150px;
+	height: 200px;
+	background-color: #7ccbbd;
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+}
+
+
+/* Design for Mobile*/
+
+@media screen and (max-width: 460px) {
+#wrap{
+	background-color: #e7eee6;
+	width: 400px;
+	height: 1250px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+h3{
+	font-family: 'Oswald';
+	font-size: 18px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+h4{
+	font-family: 'Merriweather', serif;
+	font-size: 12px;
+	text-align: center;
+	font-weight: lighter;
+	margin-top: -15px;
+}
+div#book_01{
+	width: 400px;
+	height: 400px;
+	background-color: #7ccbbd;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	float: none;
+}
+
+div#book_02{
+	width: 300px;
+	height: 400px;
+	background-color: #7ccbbd;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	float: none;
+}
+
+div#book_03{
+	width: 300px;
+	height: 400px;
+	background-color: #7ccbbd;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	float: none;
+}
+
+section#viz01{
+	background-color: #fbe7dd;
+	width: 400px;
+	height: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+
+div#keywrap01{
+	background-color: #e7eee6;
+	width: 	400px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+}
+
+div#key01{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+section#viz02{
+	background-color: #cccccc;
+	width: 400px;
+	height: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+div#keywrap02{
+	background-color: #e7eee6;
+	width: 	400px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+}
+
+div#key02{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+section#viz03{
+	background-color: #cccccc;
+	width: 400px;
+	height: 1250px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+div#keywrap03{
+	background-color: #e7eee6;
+	width: 	400px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+}
+
+div#key03{
+	margin-left: auto;
+	margin-right: auto;
+}
+}
