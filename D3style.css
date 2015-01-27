@@ -3,10 +3,21 @@
   overflow-y: hidden;
   height: 520px !important;
   padding: 20px;
+  float: none;
+  display: inline-block;
 }
 
 .book:hover {
     cursor: pointer;
+}
+
+.smallbook {
+  overflow-y: hidden;
+  height: 400px !important;
+  width: 300px !important;
+  float: none;
+  display: inline-block;
+  /*padding: 20px;*/
 }
 
 /* CSS FOR A HIDDEN SPAN THAT CHECKS HOW LONG EACH WORD IS WHEN ITS PRINTED WITH THE SPECIFIED FONT*/
