@@ -1,17 +1,23 @@
 <!doctype html>
       
-	  <html lang="en-SE">
-	        <head>
-			        <meta charset="utf-8" />
-					<title>The Colors Of Books</title>
-					<meta name="viewport" content="width=device-width; initial-scale=1.0">
-					<link rel="stylesheet" href="style.css" />
-					<link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
-					<link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
-					<link href='http://fonts.googleapis.com/css?family=Oswald:300' rel='stylesheet' type='text/css'>
-			</head>
-		
+	 <html lang="en-SE">
+        <head>
+	        <meta charset="UTF-8">
+    		<script src="//ajax.googleapis.com/ajax/libs/webfont/1.5.10/webfont.js"></script>
+    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+			
+			<title>The Colors Of Books</title>
+
+		    <script src="d3.min.js" charset="utf-8"></script>
+		    <script src="thousand.js" type="text/javascript"></script>
+			<link rel="stylesheet" href="style.css" />
+			<link rel="stylesheet" href="D3style.css" />
+
+		</head>
+	
 		<body>
+
+		<span id="test"></span>
 
 		<!-- Top section on the site-->
 	
@@ -63,7 +69,7 @@
 					<div id="backbtn01"><a class="page-scroll" href="#book_01">Back</a>
 				</div>
 
-				<img src="images/test_img.png" width="350px;" height="400px;"></a>
+				<div id="book1" class="book"></div>
 
 				<div id="keywrap01">
 
@@ -84,7 +90,9 @@
 
 				 <section id="viz02">Test
 					<div id="backbtn02"><a class="page-scroll" href="#book_02">Back</a>
-				</div>		
+				</div>	
+
+				<div id="book2" class="book"></div>	
 
 				<div id="keywrap02">
 
@@ -106,6 +114,8 @@
 				 <div id="backbtn03"><a class="page-scroll" href="#book_03">Back</a>
 				</div>
 
+				<div id="book3" class="book"></div>
+
 						
 					<div id="keywrap03">
 
@@ -120,10 +130,477 @@
 						</div>
 
 				 </section>
-		</body> <!-- end of all content-->
 
-		<!-- where to put all scripts-->
+		<!-- where to put all scripts <script type="text/javascript" src="jquery.js"></script>-->
 		<script type="text/javascript" src="main.js"></script>
-		<script type="text/javascript" src="jquery.js"></script>
+
+		
+<!-- ALL THE D3 STUFF PUT IN END OF BODY -->
+
+<script type="text/javascript">
+
+var viewArray = [
+  hundred,
+  hundred.concat(thousand1),
+  hundred.concat(thousand1).concat(thousand2),
+  hundred.concat(thousand1).concat(thousand2).concat(thousand3),
+  hundred.concat(thousand1).concat(thousand2).concat(thousand3).concat(thousand4),
+  hundred.concat(thousand1).concat(thousand2).concat(thousand3).concat(thousand4).concat(thousand5)
+];
+
+var margin = {top: 0, right: 20, bottom: 0, left: 20},
+width = 390 - margin.left - margin.right,
+height = 5000 - margin.top - margin.bottom;
+
+
+// Parameters & variables
+var textsize = 9;
+var boxside = 18;
+var seetext = true;
+var isSorted = false;
+var lastJustifyForce = false;
+var viewArrayi = 5;
+var thousands = viewArray[viewArrayi];
+var animationTime = 2000;
+var coloranimationTime = 1000;
+
+var lines1;
+var lines2;
+var lines3;
+var lastLayoutInput1;
+var lastLayoutInput2;
+var lastLayoutInput3;
+var data1;
+var data2;
+var data3;
+
+var strokecolor = "#FFFFFF"
+var firstblue = ["#003478", "#335D93", "#6685AE", "#99AEC9", "#CCD6E4"];
+var neueblue = ["#117475", "#26948B", "#43B5A5" , "#64D4BB", "#93E8D1", "#BDF7E0", "#DCFFEE"];
+var emelieblue = ["#117475", "#21827B", "#2B9992" , "#47ADA5", "#74D2C5", "#A2E8D7", "#DCFFEE"];
+
+
+// function to get width of a text in html
+function getWidth(word) {
+    return $("#test").text(word).width();
+}
+
+// [["foo"]]
+// [[{word:"foo", originalIndex:234}]]
+function getWord(wordOrObject) {
+  return typeof(wordOrObject) == "object"
+      ? wordOrObject.word
+      : wordOrObject;
+}
+
+function getIndex(wordOrObject) {
+  return typeof(wordOrObject) == "object"
+      ? wordOrObject.index
+      : -1;
+}
+
+// function to layout one line of text
+function layoutLine(line, y, layout, xwidth, forcejustify) {
+    var x = 0;
+    var fill = width - xwidth;
+    //sätter justify till true eller false. jämförelse är true eller false
+    var justify = forcejustify || fill < width * 0.2;
+    var add = justify ? fill / (line.length) : 0;
+
+    for (var i = 0; i < line.length; i++) {
+      var word = line[i];
+        var wordString = getWord(word);
+        var cleanword = clean(wordString);
+        var wordWidth = getWidth(wordString) + 3 + add;
+        layout.push({
+            "type": 'word',
+            "word": wordString,
+            "cleanword": cleanword,
+            "common" : isCommon(cleanword),
+            "commoni" : commonIndex(cleanword),
+            "index": getIndex(word),
+            "x": x,
+            "y": y,
+            "add": add,
+            "width": wordWidth
+        });
+        x += wordWidth;
+    }
+}
+
+function layoutLines(lines, forcejustify) {
+    var y = 0;
+    var layout = [];
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i];
+      var x = 0;
+      var workingLine = [];
+      for (var j = 0; j < line.length; j++) {
+        var word = line[j];
+        var wordString = getWord(word);
+
+        if (wordString == "") return;
+        var wordWidth = getWidth(wordString) + 3;
+
+        if (x + wordWidth <= width) {
+          // line is not done
+          workingLine.push(word);
+          x += wordWidth;
+        } else {
+          // line is already done
+          // do something about it
+          layoutLine(workingLine, y, layout, x, forcejustify);
+          // prepare for next line
+          workingLine = [word];
+          x = wordWidth;
+          y++;
+        }
+      }
+      // layout any remainder of the line
+      if (workingLine.length > 0) {
+          layoutLine(workingLine, y, layout, x, forcejustify);
+      }
+      y++;
+    }
+    return layout;
+}
+
+// gets the textfile
+function getText(txtfile, callback) {
+  $.get( txtfile, function (text) {
+    var i = 0;
+    var lines = window.lines = text.split('\n')
+      .map(function(line) {
+        return line
+          .trim()
+          .split(/\s+/)
+          .map(function(word) {
+            return {
+              "word": word,
+              "index": i++
+            };
+          });
+      });
+
+      callback(lines);
+    });
+}
+
+
+function start() {
+
+    getText( "books/tinyprince.txt", function (lines) {
+        lines1 = lines;
+        lastLayoutInput1 = lines;
+        data1 = layoutLines(lastLayoutInput1);
+        drawBook(group1A, group1B, data1);
+
+        //console.log(data1);
+
+    });
+    getText( "books/tinyhamlet.txt", function (lines) {
+        lines2 = lines;
+        lastLayoutInput2 = lines;
+        data2 = layoutLines(lastLayoutInput2);
+        drawBook(group2A, group2B, data2);
+
+        //console.log(data2);
+    });
+    getText( "books/tinybriefhistory.txt", function (lines) {
+        lines3 = lines;
+        lastLayoutInput3 = lines;
+        data3 = layoutLines(lastLayoutInput2);
+        drawBook(group3A, group3B, data3);
+
+        //console.log(data3);
+    });
+
+};
+
+function draw() {
+  drawBook(group1A, group1B, data1);
+  drawBook(group2A, group2B, data2);
+  drawBook(group3A, group3B, data3);
+};
+
+function sortLayout(layout) {
+  layout.sort(function(a,b) {
+    return a.index - b.index;
+  });
+  return layout;
+}
+
+function reset() {
+  lastLayoutInput1 = lines1;
+  lastLayoutInput2 = lines2;
+  lastLayoutInput3 = lines3;
+  data1 = layoutLines(lastLayoutInput1, false);
+  data2 = layoutLines(lastLayoutInput2, false);
+  data3 = layoutLines(lastLayoutInput3, false);
+  lastJustifyForce = false;
+  isSorted = false;
+};
+
+function sort() {
+  function sortbook(book) {
+    var sortedline = [];
+
+    for (var i = 0; i < book.length; i++) {
+      var line = book[i];
+      for (var j = 0; j < line.length; j++) {
+        var word = line[j];
+        sortedline.push(word);
+      }
+    }
+
+    sortedline.sort(function(a,b) {
+      var common = commonIndex(clean(getWord(a))) - commonIndex(clean(getWord(b)));
+      return common != 0
+          ? common
+          : a.index - b.index;
+    });
+
+    return [sortedline];
+  }
+
+  lastLayoutInput1 = sortbook(lines1);
+  lastLayoutInput2 = sortbook(lines2);
+  lastLayoutInput3 = sortbook(lines3);
+  data1 = sortLayout(layoutLines(lastLayoutInput1, true));
+  data2 = sortLayout(layoutLines(lastLayoutInput2, true));
+  data3 = sortLayout(layoutLines(lastLayoutInput3, true));
+  lastJustifyForce = true;
+  isSorted = true;
+};
+
+function reflow() {
+  data1 = layoutLines(lastLayoutInput1, lastJustifyForce);
+  data2 = layoutLines(lastLayoutInput2, lastJustifyForce);
+  data3 = layoutLines(lastLayoutInput3, lastJustifyForce);
+};
+
+function setCommonAndScales() {
+  thousands = viewArray[viewArrayi];
+  computeCommon();
+  $("#test").css("font-size", textsize + "pt");
+}
+
+var fontsloaded = false;
+var jQueryloaded = false;
+
+// runs when all is loaded
+function tryStart() {
+  if (fontsloaded && jQueryloaded) {
+    setCommonAndScales();
+    start();
+  }
+}
+
+WebFont.load({
+  google: {
+    families: ['Merriweather', 'Oswald']
+  },
+  active: function() {
+    fontsloaded = true;
+    tryStart();
+  }
+});
+
+jQuery(function() {
+  jQueryloaded = true;
+  tryStart();
+});
+
+// Creates an object of the common words: "Word" : index
+var commonObj = {};
+
+function computeCommon() {
+  commonObj = {};
+  for (var i = 0; i < thousands.length; i++) {
+    commonObj[thousands[i]] = i;
+  }
+}
+
+// Checks if a word is common. Returns True/False
+function isCommon(word) {
+  return commonObj[word] != undefined;
+}
+
+// Returns to common-index of the word
+function commonIndex(word) {
+  return commonObj[word] != undefined ? commonObj[word] : 5000;
+}
+
+// Returned the cleaned up word
+function clean(word) {
+  return word.replace(/[\.,-\/#!$%\^&\*;:{}=\-_`~()]/g,"").toLowerCase();
+}
+
+// D3 SVG and group layout
+function drawSVG(foo) {
+  return foo.append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.bottom + margin.top)
+    .style("margin-left", -margin.left)
+    .style("margin.right", -margin.right)
+    ;
+}
+
+// function to append group to whatever is passed
+function makeG(foo) {
+  return foo.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+}
+
+
+// SVG layout
+var svg1 = drawSVG(d3.select("#book1"));
+var svg2 = drawSVG(d3.select("#book2"));
+var svg3 = drawSVG(d3.select("#book3"));
+
+var group1B = makeG(svg1);
+var group1A = makeG(svg1);
+var group2B = makeG(svg2);
+var group2A = makeG(svg2);
+var group3B = makeG(svg3);
+var group3A = makeG(svg3);
+
+
+// Creates a linear blueScale
+var blueScale = d3.scale.threshold()
+  .domain([100, 1000, 2000, 3000, 4000, 5000])
+  .range(neueblue);
+
+var legend = d3.select('#legend')
+  .append('ul')
+    .attr('class', 'list-inline');
+
+var keys = legend.selectAll('li.key')
+    .data(blueScale.range());
+
+
+// Lay out li's and give them values and colors after the scale
+var getViewArrayi = 0
+keys.enter().append('li')
+    .attr('class', 'key')
+    .attr('value', function(d) {
+      // var r = blueScale.invertExtent(d);
+      // return r[1] ? r[1] : "rare";
+      return getViewArrayi++;
+    })
+    .style('border-top-color', String)
+    .html(function(d) {
+        var r = blueScale.invertExtent(d);
+        return r[1] ? "&#8804; " + r[1] : "rest";
+    });
+
+
+$(".list-inline li").click(function(){
+    var value = $(this).attr('value');
+    viewArrayi = value;
+    setCommonAndScales();
+
+    if (isSorted)
+      sort();
+    else
+      reset();
+
+    draw();
+});
+
+
+// D3 happens
+// Draws text
+
+function drawText(text) {
+  text.classed("text", true)
+    .classed("word", true)
+    .text(function(d) {
+      return d.word;
+    })
+    .style("opacity", function(d) {
+      return seetext ? 1 : 0;
+    })
+    .style("font-size", textsize + "pt")
+    .style("letter-spacing", function(d) {
+      return d.add / (d.word.length -1) + "px";
+    })
+    // .style("font-weight", 100)
+    .style("fill", function(d) {
+        return "#117475";
+    })
+    
+    .transition().duration(animationTime).ease("quad-out")
+    .attr("x", function(d, i) {
+      return d.x;
+    })
+    .attr("y", function(d,i) {
+      return d.y * boxside;
+    })
+    .attr("dx", function(d) { return 1 + "px"; })
+    .attr("dy", textsize + 0.5 + "pt")
+    .attr("width", function(d) { return d.width; })
+    .attr("height", boxside);
+}
+
+// Draws rectangles
+
+function drawRect(rect) {
+  rect
+    .classed("word", true)
+    .classed("rect", true)
+    .style("opacity", function(d) {
+      return 1;
+    })
+    .style("stroke", function(d) {
+      return strokecolor;
+    })
+    .style("stroke-width", function(d) {
+        return d.common ? "0.5pt" : "0.8pt";
+    })
+    .style("stroke-opacity", function(d) {
+        return 0.6;
+    })
+    .attr("rx", 0.2)
+    .attr("ry", 0.2)
+
+    .style("fill", function(d) {
+        return blueScale(d.commoni);
+    })
+
+    .transition().duration(animationTime).ease("quad-out")
+    .attr("x", function(d, i) {
+      return d.x;
+    })
+    .attr("y", function(d,i) {
+      return d.y * boxside;
+    })
+    .attr("width", function(d) { return d.width; })
+    .attr("height", boxside);
+}
+
+
+
+// Draw book
+
+function drawBook(rect, text, words) {
+
+  var bookrect = rect.selectAll("rect")
+    .data(words);
+  var booktext = text.selectAll("text")
+    .data(words);
+
+  //new
+  bookrect.enter().append("rect");
+  booktext.enter().append("text");
+
+  // new and existing
+  drawRect(bookrect);
+  drawText(booktext);
+}
+
+</script>
+
+		</body> <!-- end of all content-->
 
 	  </html>

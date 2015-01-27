@@ -1,0 +1,60 @@
+/* CSS FOR THE DIVS WHERE THE BOOKS WILL BE DRAWN */
+.book {
+  overflow-y: hidden;
+  height: 520px !important;
+  padding: 20px;
+}
+
+.book:hover {
+    cursor: pointer;
+}
+
+/* CSS FOR A HIDDEN SPAN THAT CHECKS HOW LONG EACH WORD IS WHEN ITS PRINTED WITH THE SPECIFIED FONT*/
+#test {
+  font-family: 'Merriweather', serif;
+  font-stretch: expanded;
+  position: fixed;
+  left: -99999px;
+}
+
+/* CSS FOR THE COLOR KEY (WHICH IS A LIST) */
+ul {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+li.key {
+  border-top-width: 15px; /*height of the color key colored box*/
+  border-top-style: solid;
+  font-size: .75em;
+  text-align: right;
+  width: 10%; /*width of each colorbox in the key*/
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.list-inline {
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-inline li {
+  display: inline-block;
+}
+
+/* CSS FOR THE D3 ELEMENTS */
+.rect:hover {
+    fill: #f4fff9 !important;
+    opacity: 0.2 !important;
+}
+
+.rect {
+  transition: opacity .40s ease-in-out;
+  -moz-transition: opacity .40s ease-in-out;
+  -webkit-transition: opacity .40s ease-in-out;
+}
+
+.text {
+  font-family: 'Merriweather', serif;
+  font-stretch: expanded;
+}
