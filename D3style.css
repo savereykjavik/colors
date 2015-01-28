@@ -1,4 +1,7 @@
+
 /* CSS FOR THE DIVS WHERE THE BOOKS WILL BE DRAWN */
+
+
 .book {
   overflow-y: hidden;
   height: 520px !important;
@@ -11,15 +14,6 @@
     cursor: pointer;
 }
 
-.smallbook {
-  overflow-y: hidden;
-  height: 400px !important;
-  width: 300px !important;
-  float: none;
-  display: inline-block;
-  /*padding: 20px;*/
-}
-
 /* CSS FOR A HIDDEN SPAN THAT CHECKS HOW LONG EACH WORD IS WHEN ITS PRINTED WITH THE SPECIFIED FONT*/
 #test {
   font-family: 'Merriweather', serif;
@@ -29,19 +23,26 @@
 }
 
 /* CSS FOR THE COLOR KEY (WHICH IS A LIST) */
-ul {
-  margin-top: 0;
-  margin-bottom: 10px;
+
+#belowlegend {
+  opacity: 0.6;
+}
+
+.legend {
+  position: relative;
+  width: 60%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, 0%);
 }
 
 li.key {
-  border-top-width: 15px; /*height of the color key colored box*/
+  border-top-width: 3vh; /*height of the color key colored box*/
   border-top-style: solid;
-  font-size: .75em;
+  font-size: 1.3vw;
   text-align: right;
-  width: 10%; /*width of each colorbox in the key*/
-  padding-left: 0;
-  padding-right: 0;
+  width: 13%; /*width of each colorbox in the key*/
+
 }
 
 .list-inline {

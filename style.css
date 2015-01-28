@@ -1,33 +1,127 @@
 
 /* css for all the text on the page */
 
-h1#logo {
-	font-family: 'Oswald';
-	font-size: 40px;
-	text-transform: uppercase;
+
+body {
+	font-family: 'Merriweather', 'Josefin Sans', 'Noto Sans';
+	font-size: 1.5vw;
+	margin: 0px;
+}
+.wrap {
+	overflow: hidden;
+}
+#start {
+	font-family: 'Josefin Sans', 'Noto Sans';
 	text-align: center;
+	position: relative;
+	-webkit-animation: colorchange 20s infinite;
+	animation: colorchange 20s inifinite;
 }
 
-div#intro{
-	text-align: center;
-	margin-bottom: 40px;
+
+@keyframes colorchange
+{
+0%   {background: #22989c;}
+12%  {background: #66b595;}
+40%  {background: #d1d843;}
+65%  {background: #fb5954;}
+90% {background: #66b595;}
+100% {background: #22989c;}
 }
 
-h2{
-	font-family: 'Merriweather', serif;
-	font-size: 14px;
-	text-align: center;
-	font-weight: lighter;
-	margin-top: -30px;
-	margin-bottom: 40px;
+@-webkit-keyframes colorchange /* Safari and Chrome */
+{
+0%   {background: #22989c;}
+12%  {background: #66b595;}
+40%  {background: #d1d843;}
+65%  {background: #fb5954;}
+90% {background: #66b595;}
+100% {background: #22989c;}
 }
 
-h3{
-	font-family: 'Oswald';
-	font-size: 20px;
-	text-align: center;
-	text-transform: uppercase;
+.down {
+	opacity: 0.3;
+	width: 50px;
+	height: 50px;
+	position: absolute;            
+	top: 90%;
+	margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
+
+.down:hover {
+	opacity: 1;
+	cursor: pointer;
+}
+
+h1 {
+	font-weight: 300;
+	color: #FFFFFF;
+	font-size: 8vw;
+	position: absolute;            
+	top: 35%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+}
+
+h2 {
+	padding-top: 40px;
+	color: #FFFFFF;
+	font-weight: 100;
+	font-size: 5vw;
+}
+
+h2.tagline {
+	position: absolute;            
+	top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+
+}
+
+h3 {
+	font-family: 'Merriweather';
+	font-weight: 100;
+	font-size: 2.5vw;
+}
+
+#intro {
+	color: #ffffff;
+	opacity: 0.9;
+	-webkit-animation: colorchange 20s infinite;
+	animation: colorchange 20s inifinite;
+}
+h3.intro {
+	position: relative;
+	width: 60%;
+	text-align: left;
+	top: 35%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+.smallbook{
+	overflow-y: hidden;
+	max-height: 450px ! important;
+	position: relative;            
+	transform: translate(-0%, 45%);
+}
+
+
+.smalltitle {
+	position: relative;            
+    transform: translate(-0%, 0%);
+}
+
+
+
+
+
+
 
 h4{
 	font-family: 'Merriweather', serif;
@@ -36,6 +130,7 @@ h4{
 	font-weight: lighter;
 	margin-top: -15px;
 }
+
 h5{
 	font-family: 'Oswald', sans-serif;
 	font-weight: 300;
@@ -53,39 +148,44 @@ p{
 
 /* css for the start page */
 
-#wrap{
+#topwrap{
 	background-color: #e7eee6;
-	width: 1200px;
-	height: 600px;
+}
+
+#innertopwrap{
+	height: 100%;
+	width: 100%;
+	max-width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
+	position: relative;
 }
 
-div#book_01{
-	width: 350px;
-	height: 525px;
-	float:left;
+#legendwrap{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	transform: translate(-0%, 180%);}
+
+div#leftdiv{
+	width: 33%;
+	float: left;
 	text-align: center;
-	padding-left: 60px;
 }
 
-div#book_03{
-	width: 350px;
-	height: 525px;
-	text-align: center;
-	float:right;
-	padding-right: 60px;
-}
 
-div#book_02{
-	width: 350px;
-	height: 525px;
-	margin-left:auto;
-	margin-right:auto;
+div#middlediv{
+	width: 33%;
+	float: left;
 	text-align: center;
 	padding-top: 2px;
 }
 
+div#rightdiv{
+	width: 33%;
+	float: left;
+	text-align: center;
+}
 	
 /* css for the indivdual visualization pages no 01*/
 
@@ -204,13 +304,13 @@ img{
 	width:45%
 }
 
-h3{
+/*h3{
 	font-family: 'Oswald';
 	font-size: 14px;
 	text-align: center;
 	text-transform: uppercase;
 }
-
+*/
 h4{
 	font-family: times;
 	font-size: 10px;
@@ -357,12 +457,12 @@ div#book_02{
 	margin-right: auto;
 }
 
-h3{
+/*h3{
 	font-family: 'Oswald';
 	font-size: 18px;
 	text-align: center;
 	text-transform: uppercase;
-}
+}*/
 
 h4{
 	font-family: 'Merriweather', serif;
